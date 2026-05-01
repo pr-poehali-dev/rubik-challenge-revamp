@@ -1,0 +1,10 @@
+{
+  "tests": [
+    {
+      "name": "GET balance without auth",
+      "method": "GET",
+      "path": "/",
+      "expectedStatus": 401
+    }
+  ]
+}

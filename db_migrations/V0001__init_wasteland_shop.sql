@@ -1,0 +1,63 @@
+
+CREATE TABLE users (
+  id SERIAL PRIMARY KEY,
+  username TEXT NOT NULL UNIQUE,
+  email TEXT NOT NULL UNIQUE,
+  password_hash TEXT NOT NULL,
+  is_admin BOOLEAN NOT NULL DEFAULT FALSE,
+  balance NUMERIC(12,2) NOT NULL DEFAULT 0,
+  created_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
+);
+
+CREATE TABLE sessions (
+  id TEXT PRIMARY KEY,
+  user_id INTEGER NOT NULL REFERENCES users(id),
+  created_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
+);
+
+CREATE TABLE deposits (
+  id SERIAL PRIMARY KEY,
+  user_id INTEGER NOT NULL REFERENCES users(id),
+  amount NUMERIC(12,2) NOT NULL,
+  status TEXT NOT NULL DEFAULT 'pending',
+  comment TEXT,
+  created_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
+);
+
+CREATE TABLE cases (
+  id SERIAL PRIMARY KEY,
+  name TEXT NOT NULL,
+  price NUMERIC(12,2) NOT NULL,
+  img_url TEXT NOT NULL DEFAULT ''
+);
+
+CREATE TABLE prizes (
+  id SERIAL PRIMARY KEY,
+  case_id INTEGER NOT NULL REFERENCES cases(id),
+  name TEXT NOT NULL,
+  emoji TEXT NOT NULL DEFAULT '🎁',
+  rarity TEXT NOT NULL DEFAULT 'common',
+  weight INTEGER NOT NULL DEFAULT 10
+);
+
+CREATE TABLE spins (
+  id SERIAL PRIMARY KEY,
+  user_id INTEGER NOT NULL REFERENCES users(id),
+  case_id INTEGER NOT NULL REFERENCES cases(id),
+  prize_id INTEGER NOT NULL REFERENCES prizes(id),
+  seed_hash TEXT NOT NULL DEFAULT '',
+  client_seed TEXT NOT NULL DEFAULT '',
+  is_claimed BOOLEAN NOT NULL DEFAULT FALSE,
+  created_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
+);
+
+CREATE TABLE cube_games (
+  id SERIAL PRIMARY KEY,
+  user_id INTEGER NOT NULL REFERENCES users(id),
+  bet NUMERIC(12,2) NOT NULL,
+  player_roll INTEGER NOT NULL,
+  server_roll INTEGER NOT NULL,
+  result TEXT NOT NULL,
+  payout NUMERIC(12,2) NOT NULL,
+  created_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
+);

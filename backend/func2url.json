@@ -1,0 +1,7 @@
+{
+  "auth": "https://functions.poehali.dev/9581cb17-fd5a-4deb-a98b-dff8f5fc6a92",
+  "cases": "https://functions.poehali.dev/ff7a9e48-7c45-49fc-915d-71e1e8891471",
+  "cube": "https://functions.poehali.dev/3a2fdc55-ad8c-4eaa-88f5-cda41ca19133",
+  "balance": "https://functions.poehali.dev/210a59ce-17bc-4cbc-ace6-e44a4452340c",
+  "admin": "https://functions.poehali.dev/d29e681e-a9b2-4675-8b27-87baff210b07"
+}
